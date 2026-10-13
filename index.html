@@ -1,0 +1,58 @@
+<!doctype html><html><head><meta charset="utf-8"><title>RADIO STUDIO — dark pop club</title>
+<meta name="viewport" content="width=device-width,initial-scale=1"><link rel="stylesheet" href="style.css"></head><body>
+<header><h1>RADIO<span>STUDIO</span></h1>
+<div class="transport">
+<button id="play" class="big" data-tip="Start/stop the beat (Spacebar)">▶ PLAY</button>
+<label data-tip="Tempo. Slayyyter-style dance pop sits ~120-128">BPM <input id="bpm" type="number" min="60" max="180" value="125"></label>
+<label data-tip="Swing pushes every other 16th late for groove">Swing <input id="swing" type="range" min="0" max="0.5" step="0.01" value="0"></label>
+<select id="preset" data-tip="Load a ready-made song starter"><option value="">— Load preset —</option><option value="dance">Dance (Slayyyter vibe)</option><option value="darkclub">Dark Club Pop</option><option value="hyperpop">Hyperpop Rush</option><option value="electro">Electro Pop Banger</option><option value="synthwave">80s Synthwave</option><option value="clear">Blank</option></select>
+<button id="save" data-tip="Save project in this browser">💾 Save</button><button id="load" data-tip="Load saved project">📂 Load</button>
+</div></header>
+<div id="help" class="help">👋 New here? Pick a <b>preset</b>, hit <b>PLAY</b>, then click squares to add/remove notes. Hover anything for a tip. Spacebar = play/stop.</div>
+<main>
+<section class="panel wide"><h2>Pattern banks <small>edit:</small>
+<button class="bank on" data-bank="A" data-tip="Edit pattern bank A (left side of crossfader)">A</button><button class="bank" data-bank="B" data-tip="Edit bank B (right side of crossfader)">B</button>
+<button id="copyAB" data-tip="Copy the bank you're editing into the other bank">Copy → other</button></h2>
+<h3>Drums</h3><div id="drumgrid" class="grid"></div>
+<h3>Bass <select id="bassTone" data-tip="Bass sound"><option value="saw">Saw bass</option><option value="acid">Acid (303-ish)</option><option value="808">808 (distorted)</option><option value="reese">Reese</option><option value="sub">Sub/sine</option></select></h3><div id="bassgrid" class="grid"></div>
+<h3>Lead / Pad <select id="leadTone" data-tip="Synth preset"><option value="juno">Juno pad</option><option value="dx7">DX7 bell</option><option value="supersaw">Supersaw</option><option value="house">House chord pluck</option><option value="glitch">Hyperpop glitch</option><option value="pluck">Electroclash pluck</option></select></h3><div id="leadgrid" class="grid"></div>
+<h3>Arpeggiator <label data-tip="Turn arp on/off"><input type="checkbox" id="arpOn"> on</label> <span data-tip="Chord for each beat (A-minor scale degrees)">chords:</span> <span id="arpProg"></span>
+<select id="arpMode" data-tip="Arp direction"><option>up</option><option>down</option><option>updown</option><option>random</option></select></h3>
+</section>
+<section class="panel"><h2>DJ Mixer</h2><div id="mixer"></div>
+<label class="row" data-tip="Blend between bank A and bank B — perform transitions!">A <input id="xfade" type="range" min="0" max="1" step="0.01" value="0"> B</label>
+<label class="row" data-tip="Sidechain pump: ducks bass, lead &amp; arp on every kick for that pumping club feel">Sidechain <input id="sc" type="range" min="0" max="1" step="0.01" value="0.6"></label>
+<label class="row" data-tip="Filter sweep: left = muffled lowpass, middle = open, right = thin highpass">Filter <input id="filter" type="range" min="-1" max="1" step="0.01" value="0"></label>
+<label class="row" data-tip="Master volume">Master <input id="master" type="range" min="0" max="1" step="0.01" value="0.8"></label>
+<h2>FX Pads</h2><div id="pads" class="pads"></div></section>
+<section class="panel"><h2>Vocal Booth 🎤</h2>
+<button id="mic" data-tip="Allow microphone access">Enable mic</button>
+<label data-tip="Hear yourself with effects (use headphones!)"><input type="checkbox" id="monitor"> monitor</label>
+<button id="rec" data-tip="Record a take. It starts on the next bar and records 4 bars, then loops with the beat">● Record take (4 bars)</button>
+<h2>Voice Changer</h2><div id="voices" class="voices"></div><div class="fx">
+<label data-tip="Real pitch shift that keeps timing (granular). Applies live and to takes">Pitch <span id="vPitchVal">0 st</span><input id="vPitch" type="range" min="-12" max="12" step="1" value="0"></label>
+<label data-tip="Moves vocal resonances: left = bigger/deeper throat, right = smaller/brighter">Formant <input id="vcFormant" type="range" min="-6" max="6" step="0.5" value="0"></label>
+<label data-tip="Low-end warmth (dB)">Body <input id="vcBody" type="range" min="-8" max="8" step="0.5" value="0"></label>
+<label data-tip="Top-end sparkle/breathiness (dB)">Air <input id="vcAir" type="range" min="-6" max="12" step="0.5" value="0"></label>
+<label data-tip="Evens out loud and soft parts — the polished radio sound">Compress <input id="vcComp" type="range" min="0" max="1" step="0.01" value="0.2"></label>
+<label data-tip="Tames harsh S and T sounds">De-ess <input id="vcDeess" type="range" min="0" max="1" step="0.01" value="0.2"></label>
+<label data-tip="Auto-tune: snaps your pitch to A-minor notes. 1 = hard robotic snap, 0.5 = natural">Auto-tune <input id="vcTune" type="range" min="0" max="1" step="0.01" value="0"></label>
+<label data-tip="Room/hall space">Reverb <input id="vReverb" type="range" min="0" max="1" step="0.01" value="0.3"></label>
+<label data-tip="Echo synced to the beat (1/8 dotted)">Delay <input id="vDelay" type="range" min="0" max="1" step="0.01" value="0.2"></label>
+<label data-tip="Grit / crunch">Distortion <input id="vDist" type="range" min="0" max="1" step="0.01" value="0"></label>
+<label data-tip="Robot ring-mod / vocoder-ish voice">Robot <input id="vRobot" type="range" min="0" max="1" step="0.01" value="0"></label>
+</div><div id="takes"></div>
+<h2>Export</h2>
+<label data-tip="How many bars to bounce">Bars <input id="expBars" type="number" min="1" max="64" value="8"></label>
+<button id="export" data-tip="Record the mix and download as WAV + WebM">⬇ Export mixdown</button><div id="expStatus"></div>
+</section>
+<section class="panel full"><h2>Songwriter ✍️</h2>
+<textarea id="swInput" rows="2" placeholder="Type what you're thinking or feeling… e.g. 'I'm done waiting for him to text back, tonight I'm the main character'" data-tip="Your words become the theme of the song"></textarea>
+<div id="chips" class="chips" data-tip="Pick one or more moods"></div>
+<button id="swGen" class="big" data-tip="Write original lyrics: verse, pre-chorus, chorus, bridge">✨ Write lyrics</button>
+<button id="swApply" data-tip="Load the preset, tempo, sounds and voice that match your mood">🎛 Apply sound</button>
+<button id="swPrompt" data-tip="Show lyrics as a teleprompter (also pops up automatically while recording)">📜 Teleprompter</button>
+<div id="swSuggest" class="sugg"></div><div id="lyrics" class="lyrics"></div></section></main>
+<div id="prompter"></div>
+<div id="tip"></div>
+<script src="songwriter.js"></script><script src="app.js"></script></body></html>
